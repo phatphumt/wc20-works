@@ -6,6 +6,11 @@ body {
   color: #333;
 }
 
+h3 {
+  padding: 0;
+  margin: 0;
+}
+
 header {
   background-color: #4f46e5;
   color: white;
@@ -46,6 +51,7 @@ table {
 
 th,
 td {
+  width: 33%;
   text-align: left;
   padding: 0.75rem;
   border-bottom: 1px solid #e5e7eb;
@@ -54,6 +60,62 @@ td {
 th {
   background-color: #eef2ff;
   font-weight: 600;
+}
+
+button {
+  background-color: #4f46e5;
+  color: white;
+  border: none;
+  padding: 0.6rem 1.2rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: inherit;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+button:hover {
+  background-color: #4338ca;
+}
+
+button:active {
+  background-color: #3730a3;
+}
+
+.selweek {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.wksel {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+
+.dropdown {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  border-radius: 8px;
+  border: 1px solid #cbd5e1;
+  font-family: inherit;
+  background-color: white;
+  color: #333;
+}
+
+.title {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
 }
 
 @media (max-width: 600px) {
@@ -105,5 +167,25 @@ th {
 
   table {
     color: #ddd;
+  }
+
+  button {
+    background-color: #6366f1;
+    color: #f3f4f6;
+    box-shadow: 0 2px 6px rgba(255, 255, 255, 0.05);
+  }
+
+  button:hover {
+    background-color: #818cf8;
+  }
+
+  button:active {
+    background-color: #a5b4fc;
+  }
+
+  .dropdown {
+    background-color: #1f2937;
+    color: #e5e7eb;
+    border-color: #4b5563;
   }
 }

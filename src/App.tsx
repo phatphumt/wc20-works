@@ -1,4 +1,6 @@
 import React, { useEffect, useState, type JSX } from "react";
+import './index.css'
+import { Link } from "react-router";
 
 const API_KEY = import.meta.env.VITE_GOOGLE_SHEETS_API_KEY;
 const SHEET_ID = "1-HeR_Rt7M-wxHP8W6CxRQM8jrL3uDs2oWq6W2b9xtBs";
@@ -16,14 +18,14 @@ const ranges: SheetRange[] = [
     range: "'รวมงาน'!B4:D100",
   },
   {
-    id: "nodate",
-    label: "📌 งานที่ยังไม่มีกำหนดส่ง",
-    range: "'รวมงาน'!F4:G100",
-  },
-  {
     id: "overdue",
     label: "❌ งานที่เลยกำหนดส่ง / การสอบที่ผ่านไปแล้ว",
     range: "'รวมงาน'!I4:K100",
+  },
+  {
+    id: "nodate",
+    label: "📌 งานที่ยังไม่มีกำหนดส่ง",
+    range: "'รวมงาน'!F4:G100",
   },
 ];
 
@@ -103,8 +105,11 @@ const App: React.FC = () => {
 
   return (
     <div className="sheet-wrapper">
-      <div>
+      <div className="title">
         <h1>📘 ตารางงาน ม.4/2</h1>
+        <h2>
+          <Link to="/activities">กิจกรรม ➡️</Link>
+        </h2>
       </div>
       {loading ? (
         <p>กำลังโหลด...</p>
