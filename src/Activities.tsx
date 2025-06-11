@@ -3,31 +3,13 @@ import React, { useEffect, useState, type JSX } from "react";
 const API_KEY = import.meta.env.VITE_GOOGLE_SHEETS_API_KEY;
 const SHEET_ID = "1-HeR_Rt7M-wxHP8W6CxRQM8jrL3uDs2oWq6W2b9xtBs";
 
-interface SheetRange {
-  id: string;
-  label: string;
-  range: string;
-}
+// interface SheetRange {
+//   id: string;
+//   label: string;
+//   range: string;
+// }
 
-const ranges: SheetRange[] = [
-  {
-    id: "upcoming",
-    label: "📅 งานที่จะครบกำหนดส่ง",
-    range: "'รวมงาน'!B4:D100",
-  },
-  {
-    id: "nodate",
-    label: "📌 งานที่ยังไม่มีกำหนดส่ง",
-    range: "'รวมงาน'!F4:G100",
-  },
-  {
-    id: "overdue",
-    label: "❌ งานที่เลยกำหนดส่ง / การสอบที่ผ่านไปแล้ว",
-    range: "'รวมงาน'!I4:K100",
-  },
-];
-
-const App: React.FC = () => {
+const Activities: React.FC = () => {
   const [data, setData] = useState<Record<string, string[][]>>({});
   const [loading, setLoading] = useState<boolean>(true);
 
@@ -41,8 +23,8 @@ const App: React.FC = () => {
       },
     });
     const json = await response.json();
-    console.log(json.values);
-    return json.values || [];
+    // console.log(json.values);
+    return json.values;
   };
 
   useEffect(() => {
@@ -51,15 +33,15 @@ const App: React.FC = () => {
 
     const fetchData = async () => {
       const results: Record<string, string[][]> = {};
-      for (const { id, range } of ranges) {
+      for (let i = 4; i <= 8; i++) {
         try {
-          const data = await fetchSheetRange(range);
-          if (isMounted) results[id] = data;
+          const data = await fetchSheetRange(`'Week ${i}'!L3:O`);
+          if (isMounted) results[`${i-4}`] = data;
         } catch (err) {
-          console.error(`Error loading ${range}:`, err);
-          results[id] = [["โหลดข้อมูลไม่ได้"]];
+          console.error(`Error loading 'Week ${i}'!L:O`, err);
+          results[`${i-4}`] = [["โหลดข้อมูลไม่ได้"]];
         }
-      }
+      };
 
       if (isMounted) {
         setData(results);
@@ -67,7 +49,7 @@ const App: React.FC = () => {
       }
     };
 
-    fetchData();
+    fetchData()
     return () => {
       isMounted = false;
     };
@@ -104,15 +86,14 @@ const App: React.FC = () => {
   return (
     <div className="sheet-wrapper">
       <div>
-        <h1>📘 ตารางงาน ม.4/2</h1>
+        <h1>📘 กิจกรรมในห้อง ม.4/2</h1>
       </div>
       {loading ? (
         <p>กำลังโหลด...</p>
       ) : (
-        ranges.map(({ id, label }) => (
-          <div className="card" key={id}>
-            <h2>{label}</h2>
-            {renderTable(data[id])}
+       [1].map((el) => (
+          <div className="card" key={1}>
+            {renderTable(data[el])}
           </div>
         ))
       )}
@@ -120,4 +101,4 @@ const App: React.FC = () => {
   );
 };
 
-export default App;
+export default Activities;
