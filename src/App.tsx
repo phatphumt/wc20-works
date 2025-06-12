@@ -35,7 +35,6 @@ const App: React.FC = () => {
 
   const fetchSheetRange = async (range: string): Promise<string[][]> => {
     const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}&t=${Date.now()}`;
-    console.log("FETCHING", url);
     const response = await fetch(url, {
       cache: "no-store",
       headers: {
@@ -43,12 +42,10 @@ const App: React.FC = () => {
       },
     });
     const json = await response.json();
-    console.log(json.values);
     return json.values || [];
   };
 
   useEffect(() => {
-    // console.log(API_KEY);
     let isMounted = true;
 
     const fetchData = async () => {

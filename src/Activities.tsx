@@ -14,7 +14,6 @@ const Activities: React.FC = () => {
   const fetchSheetRange = useCallback(
     async (range: string): Promise<string[][]> => {
       const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${range}?key=${API_KEY}&t=${Date.now()}`;
-      console.log("FETCHING", url);
       const response = await fetch(url, {
         cache: "no-store",
         headers: {
@@ -22,14 +21,12 @@ const Activities: React.FC = () => {
         },
       });
       const json = await response.json();
-      // console.log(json.values);
       return json.values || [];
     },
     []
   );
 
   const handleChange = (n: number) => {
-    console.log(n);
     setLoading(true);
     setWeek(n);
   }
@@ -54,8 +51,6 @@ const Activities: React.FC = () => {
         grouped.map((row) => {
           row.unshift(["วิชา", "กิจกรรม"]);
         });
-        console.log(grouped);
-        console.log(days);
         setData(grouped);
         setDay(days);
       } catch (err) {
